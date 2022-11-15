@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use Error;
-use Exception;
 
 class Router
 {
