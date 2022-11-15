@@ -2,7 +2,7 @@
 
 use App\Services\Router;
 
-Router::api("/register", "register");
-Router::api("/login", "login");
+Router::api("/register", "RegisterController");
+Router::api("/login", "LoginController");
 
 Router::enable();
