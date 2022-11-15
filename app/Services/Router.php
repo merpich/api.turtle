@@ -45,6 +45,7 @@ class Router
 				} catch (Error $e) {
 					echo "Controller " . $route["controller"] . " does not exists: " . $e->getMessage();
 				}
+				die();
 			}
 
 			http_response_code(404);
