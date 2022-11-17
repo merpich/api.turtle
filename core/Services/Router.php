@@ -16,15 +16,16 @@ class Router
 	/**
 	 * Method of creating route
 	 *
-	 * @param [type] $uri
-	 * @param [type] $controller
+	 * @param string $uri
+	 * @param array $controller
 	 * @return void
 	 */
 	public static function api($uri, $controller)
 	{
 		self::$routes[] = [
 			"uri" => $uri,
-			"controller" => $controller
+			"controller" => $controller[0],
+			"method" => $controller[1]
 		];
 	}
 
@@ -35,13 +36,14 @@ class Router
 	 */
 	public static function enable()
 	{
-		$query = $_GET["q"];
+		isset($_GET["query"]) ? $query = $_GET["query"] : $query = "";
 
 		foreach (self::$routes as $route) {
 			if ($route["uri"] === "/" . $query) {
 				try {
-					$class = "App\\Controllers\\" . $route["controller"];
-					new $class;
+					$method = $route["method"];
+					$controller = new $route["controller"]();
+					$controller->$method();
 				} catch (Error $e) {
 					echo "Controller " . $route["controller"] . " does not exists: " . $e->getMessage();
 				}

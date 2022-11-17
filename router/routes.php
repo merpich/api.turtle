@@ -1,8 +1,8 @@
 <?php
 
 use Core\Services\Router;
+use App\Controllers\Controller;
 
-Router::api("/register", "RegisterController");
-Router::api("/login", "LoginController");
+Router::api("/", [Controller::class, "index"]);
 
 Router::enable();
