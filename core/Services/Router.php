@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace Core\Services;
 
 use Error;
 
@@ -40,7 +40,7 @@ class Router
 		foreach (self::$routes as $route) {
 			if ($route["uri"] === "/" . $query) {
 				try {
-					$class = "Api\\Controllers\\" . $route["controller"];
+					$class = "App\\Controllers\\" . $route["controller"];
 					new $class;
 				} catch (Error $e) {
 					echo "Controller " . $route["controller"] . " does not exists: " . $e->getMessage();
