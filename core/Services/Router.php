@@ -36,10 +36,10 @@ class Router
 	 */
 	public static function enable()
 	{
-		isset($_GET["query"]) ? $query = $_GET["query"] : $query = "";
+		$uri = $_SERVER["REQUEST_URI"];
 
 		foreach (self::$routes as $route) {
-			if ($route["uri"] === "/" . $query) {
+			if ($route["uri"] === $uri) {
 				try {
 					$method = $route["method"];
 					$controller = new $route["controller"]();
@@ -47,10 +47,9 @@ class Router
 				} catch (Error $e) {
 					echo "Controller " . $route["controller"] . " does not exists: " . $e->getMessage();
 				}
-				die();
+			} else {
+				http_response_code(404);
 			}
-
-			http_response_code(404);
 		}
 	}
 }
