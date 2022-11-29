@@ -9,13 +9,13 @@ class Model extends Connect
 	/**
 	 * Database connection
 	 *
-	 * @var [type]
+	 * @var bool/object
 	 */
-	protected $db_connect;
+	protected $pdo;
 
 	public function __construct()
 	{
 		parent::__construct();
-		$this->db_connect = new Connect();
+		$this->pdo = new Connect();
 	}
 }
