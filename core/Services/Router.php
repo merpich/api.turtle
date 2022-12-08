@@ -37,6 +37,7 @@ class Router
 	public static function enable()
 	{
 		$uri = $_SERVER["REQUEST_URI"];
+		$route_exists = true;
 
 		foreach (self::$routes as $route) {
 			if ($route["uri"] === $uri) {
@@ -47,9 +48,14 @@ class Router
 				} catch (Error $e) {
 					echo "Controller " . $route["controller"] . " does not exists: " . $e->getMessage();
 				}
+				die();
 			} else {
-				http_response_code(404);
+				$route_exists = false;
 			}
+		}
+
+		if (!$route_exists) {
+			http_response_code(404);
 		}
 	}
 }

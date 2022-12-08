@@ -5,5 +5,8 @@
 			"App\\": "app/",
 			"DB\\": "database/"
 		}
+	},
+	"require": {
+		"firebase/php-jwt": "^6.3"
 	}
 }
