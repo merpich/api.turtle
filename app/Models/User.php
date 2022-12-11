@@ -34,5 +34,6 @@ class User extends Model
 	{
 		$this->pdo->query("INSERT INTO users (nickname, email, password)
 			VALUES ('{$data["nickname"]}', '{$data["email"]}', '{$data["password_hash"]}')");
+		return $this->pdo->lastInsertId();
 	}
 }

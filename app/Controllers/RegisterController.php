@@ -34,22 +34,27 @@ class RegisterController
 
 			if (empty($db_data)) {
 				$this->data["password_hash"] = password_hash($this->data["password"], PASSWORD_BCRYPT);
-				$this->user->insert($this->data);
+				$user_id = $this->user->insert($this->data);
+				$user_data = [
+					"id" => $user_id,
+					"nickname" => $this->data["nickname"],
+					"email" => $this->data["email"]
+				];
+				$token = Helper::create_JWT($user_data);
 
+				http_response_code(201);
 				echo json_encode([
-					"status" => 201,
-					"message" => "Пользователь создан"
+					"message" => "Success",
+					"token" => $token
 				], JSON_UNESCAPED_UNICODE);
 			} else {
 				echo json_encode([
-					"status" => 401,
-					"message" => "Электронная почта уже занята"
+					"message" => "email"
 				], JSON_UNESCAPED_UNICODE);
 			}
 		} else {
 			echo json_encode([
-				"status" => 401,
-				"message" => "Никнейм уже занят"
+				"message" => "nickname"
 			], JSON_UNESCAPED_UNICODE);
 		}
 	}

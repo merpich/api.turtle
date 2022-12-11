@@ -33,20 +33,17 @@ class LoginController
 				$token = Helper::create_JWT($user_data);
 
 				echo json_encode([
-					"status" => 200,
-					"message" => "Успешный вход",
+					"message" => "Success",
 					"token" => $token
 				], JSON_UNESCAPED_UNICODE);
 			} else {
 				echo json_encode([
-					"status" => 401,
-					"message" => "Неверный пароль"
+					"message" => "password"
 				], JSON_UNESCAPED_UNICODE);
 			}
 		} else {
 			echo json_encode([
-				"status" => 401,
-				"message" => "Неверная электронная почта"
+				"message" => "email"
 			], JSON_UNESCAPED_UNICODE);
 		}
 	}
