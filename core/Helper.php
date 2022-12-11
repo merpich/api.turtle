@@ -3,6 +3,7 @@
 namespace Core;
 
 use \Firebase\JWT\JWT;
+use \Firebase\JWT\Key;
 
 class Helper
 {
@@ -38,5 +39,23 @@ class Helper
 
 		$token = JWT::encode($payload, $key, "HS256");
 		return $token;
+	}
+
+	public static function validate_JWT($token)
+	{
+		$key = "franky_is_my_turtle";
+
+		try {
+			$decoded = JWT::decode($token, new Key($key, "HS256"));
+			return [
+				"message" => "Success",
+				"data" => $decoded->data
+			];
+		} catch (Exception $e) {
+			return [
+				"message" => "denied",
+				"error" => $e->getMessage()
+			];
+		}
 	}
 }
